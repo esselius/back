@@ -17,10 +17,11 @@
     perSystem = { config, ... }: {
       devShells.default = config.pre-commit.devShell;
       pre-commit.settings.hooks = {
-        nixpkgs-fmt.enable = true;
-        statix.enable = true;
         deadnix.enable = true;
         flake-checker.enable = true;
+        markdownlint.enable = true;
+        nixpkgs-fmt.enable = true;
+        statix.enable = true;
       };
     };
 
