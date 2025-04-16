@@ -4,7 +4,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - uses: DeterminateSystems/nix-installer-action@v16
-    - run: nix -Lv flake check
+    - name: Check flake
+      run: nix -Lv flake check
     timeout-minutes: 60
 'on':
   push: {}

@@ -31,10 +31,10 @@
         jobs.nix-flake-check = {
           runs-on = "ubuntu-latest";
           timeout-minutes = 60;
-          steps = [
-            { uses = "actions/checkout@v4"; }
-            inputs.actions-nix.lib.steps.DeterminateSystemsNixInstallerAction
-            { run = "nix -Lv flake check"; }
+          steps = with inputs.actions-nix.lib.steps; [
+            actionsCheckout
+            DeterminateSystemsNixInstallerAction
+            runNixFlakeCheck
           ];
         };
       };
