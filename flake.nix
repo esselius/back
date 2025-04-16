@@ -7,7 +7,7 @@
   };
 
   outputs = inputs@{ flake-parts, ... }: flake-parts.lib.mkFlake { inherit inputs; } {
-    systems = [ "aarch64-darwin" ];
+    systems = [ "aarch64-darwin" "x86_64-linux" ];
 
     imports = [
       inputs.git-hooks-nix.flakeModule
@@ -26,21 +26,15 @@
 
     flake.actions-nix = {
       pre-commit.enable = true;
-      workflows = {
-        ".github/workflows/main.yaml" = {
-          jobs = {
-            nix-flake-check = {
-              runs-on = "ubuntu-latest";
-              timeout-minutes = 60;
-              steps = [
-                { uses = "actions/checkout@v4"; }
-
-                inputs.actions-nix.lib.steps.DeterminateSystemsNixInstallerAction
-
-                { run = "nix -Lv flake check"; }
-              ];
-            };
-          };
+      workflows.".github/workflows/main.yaml" = {
+        jobs.nix-flake-check = {
+          runs-on = "ubuntu-latest";
+          timeout-minutes = 60;
+          steps = [
+            { uses = "actions/checkout@v4"; }
+            inputs.actions-nix.lib.steps.DeterminateSystemsNixInstallerAction
+            { run = "nix -Lv flake check"; }
+          ];
         };
       };
     };
