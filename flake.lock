@@ -154,21 +154,6 @@
         "type": "github"
       }
     },
-    "just-flake": {
-      "locked": {
-        "lastModified": 1713316411,
-        "narHash": "sha256-NkJfU6H+6vgHkPtZ2ESbZ/h2wnsDQrZvB4vbdUIBx8Q=",
-        "owner": "juspay",
-        "repo": "just-flake",
-        "rev": "0e33952a4bcd16cd54ee3aba8111606c237d4526",
-        "type": "github"
-      },
-      "original": {
-        "owner": "juspay",
-        "repo": "just-flake",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1740126099,
@@ -275,7 +260,6 @@
         "actions-nix": "actions-nix",
         "flake-parts": "flake-parts_2",
         "git-hooks-nix": "git-hooks-nix",
-        "just-flake": "just-flake",
         "nixpkgs": "nixpkgs_3",
         "pkgs-by-name-for-flake-parts": "pkgs-by-name-for-flake-parts"
       }

@@ -3,7 +3,6 @@
     actions-nix.url = "github:nialov/actions.nix";
     flake-parts.url = "github:hercules-ci/flake-parts";
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
-    just-flake.url = "github:juspay/just-flake";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
   };
@@ -14,7 +13,6 @@
     imports = [
       inputs.actions-nix.flakeModules.actions-nix
       inputs.git-hooks-nix.flakeModule
-      inputs.just-flake.flakeModule
       inputs.pkgs-by-name-for-flake-parts.flakeModule
     ];
 
@@ -22,7 +20,6 @@
       devShells.default = pkgs.mkShell {
         inputsFrom = [
           config.pre-commit.devShell
-          config.just-flake.outputs.devShell
         ];
       };
 
@@ -32,16 +29,6 @@
         markdownlint.enable = true;
         nixpkgs-fmt.enable = true;
         statix.enable = true;
-      };
-
-      just-flake.features = {
-        build = {
-          enable = true;
-          justfile = ''
-            build:
-              nix build --no-link .#apache-pulsar
-          '';
-        };
       };
 
       pkgsDirectory = ./pkgs;
