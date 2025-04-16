@@ -1,11 +1,11 @@
 { stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
-  pname = "apache-pulsar";
+  pname = "pulsar";
   version = "4.0.4";
 
   src = fetchurl {
-    url = "mirror://apache/pulsar/pulsar-${version}/apache-pulsar-${version}-bin.tar.gz";
+    url = "mirror://apache/${pname}/${pname}-${version}/apache-${pname}-${version}-bin.tar.gz";
     hash = "sha256-Jexhq1QYJX7lqq5JtK7bdlUe6u+WVYxP14KcKaQgPTw=";
   };
 
