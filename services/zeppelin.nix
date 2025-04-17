@@ -24,6 +24,10 @@
         type = lib.types.port;
         default = 8089;
       };
+      useFlink = lib.mkEnableOption "Enable flink support";
+      flinkPkg = lib.mkPackageOption pkgs "flink_1_17" { };
+      useSpark = lib.mkEnableOption "Enable spark support";
+      sparkPkg = lib.mkPackageOption pkgs "spark_3_5" { };
     };
   };
   config =
@@ -41,7 +45,8 @@
           "ZEPPELIN_WAR_TEMPDIR=$${PWD}/.data/zeppelin/tmp"
           "ZEPPELIN_PORT=${toString cfg.port}"
           "USE_HADOOP=false"
-        ];
+        ] ++ lib.optional cfg.useFlink "FLINK_HOME=${cfg.flinkPkg}/opt/flink"
+        ++ lib.optional cfg.useSpark "SPARK_HOME=${cfg.sparkPkg}";
       };
     };
 }

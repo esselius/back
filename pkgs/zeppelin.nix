@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchurl, makeWrapper, jdk11, coreutils, findutils, gnugrep, gawk, gnused, hostname, flink }:
+{ lib, stdenv, fetchurl, makeWrapper, jdk11, coreutils, findutils, gnugrep, gawk, gnused, hostname }:
 
 stdenv.mkDerivation rec {
   pname = "zeppelin";
@@ -19,7 +19,6 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/zeppelin.sh \
       --set JAVA_HOME "${jdk11.home}" \
-      --set PATH "${lib.makeBinPath [coreutils findutils gnugrep gawk gnused hostname]}" \
-      --set FLINK_HOME "${flink}/opt/flink"
+      --set PATH "${lib.makeBinPath [coreutils findutils gnugrep gawk gnused hostname]}"
   '';
 }

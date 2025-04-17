@@ -24,8 +24,8 @@
         overlays = [
           (_: prev: {
             zeppelin = prev.callPackage ./pkgs/zeppelin.nix { };
+            flink_1_17 = prev.callPackage ./pkgs/flink_1_17.nix { };
           })
-          (import ./flink-overlay.nix)
         ];
       };
 
@@ -46,9 +46,21 @@
       pkgsDirectory = ./pkgs;
 
       process-compose.notebook = {
-        imports = [ ./services/zeppelin.nix ];
+        imports = [
+          ./services/zeppelin.nix
+          ./services/flink.nix
+          ./services/spark.nix
+        ];
 
-        services.zeppelin.enable = true;
+        services = {
+          zeppelin = {
+            enable = true;
+            useFlink = true;
+            useSpark = true;
+          };
+          flink.enable = true;
+          spark.enable = true;
+        };
       };
     };
 
