@@ -35,6 +35,7 @@
         inputsFrom = [
           config.pre-commit.devShell
         ];
+        packages = [ pkgs.watchexec ];
       };
 
       pre-commit.settings.hooks = {
