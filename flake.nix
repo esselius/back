@@ -1,8 +1,10 @@
 {
   inputs = {
     actions-nix.url = "github:nialov/actions.nix";
+    actions-nix.inputs.nixpkgs.follows = "nixpkgs";
     flake-parts.url = "github:hercules-ci/flake-parts";
     git-hooks-nix.url = "github:cachix/git-hooks.nix";
+    git-hooks-nix.inputs.nixpkgs.follows = "nixpkgs";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
     process-compose-flake.url = "github:Platonic-Systems/process-compose-flake";
