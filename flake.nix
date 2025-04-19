@@ -36,6 +36,7 @@
           config.pre-commit.devShell
         ];
         packages = [ pkgs.watchexec ];
+        shellHook = config.pre-commit.installationScript;
       };
 
       pre-commit.settings.hooks = {
