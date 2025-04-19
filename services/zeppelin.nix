@@ -30,7 +30,7 @@ in
       };
       port = lib.mkOption {
         type = lib.types.port;
-        default = 8089;
+        default = 8087;
       };
       useFlink = lib.mkEnableOption "Enable flink support";
       flinkPkg = lib.mkPackageOption pkgs "flink_1_17" { };
