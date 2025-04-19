@@ -19,13 +19,17 @@
       cfg = config.services.flink;
     in
     lib.mkIf cfg.enable {
-      settings.processes.flink = {
-        command = "${cfg.package}/opt/flink/bin/start-cluster.sh";
-        is_daemon = true;
-        shutdown.command = "${cfg.package}/opt/flink/bin/stop-cluster.sh";
-        environment = [
-          "FLINK_LOG_DIR=${cfg.logDir}"
-        ];
+      settings.processes.flink-jobmanager = {
+        command = "${cfg.package}/opt/flink/bin/jobmanager.sh start-foreground";
+        environment = {
+          JAVA_HOME = toString pkgs.jdk8.home;
+        };
+      };
+      settings.processes.flink-taskmanager = {
+        command = "${cfg.package}/opt/flink/bin/taskmanager.sh start-foreground";
+        environment = {
+          JAVA_HOME = toString pkgs.jdk8.home;
+        };
       };
     };
 }
