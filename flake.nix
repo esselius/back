@@ -63,15 +63,15 @@
           ];
 
           services = {
-            flink.f1.enable = true;
-            pulsar.p1.enable = true;
-            spark.s1.enable = true;
-            zeppelin.ze1 = {
+            flink.flink.enable = true;
+            pulsar.pulsar.enable = true;
+            spark.spark.enable = true;
+            zeppelin.zeppelin = {
               enable = true;
               useFlink = true;
               useSpark = true;
             };
-            zookeeper.zo1.enable = true;
+            zookeeper.zookeeper.enable = true;
           };
         };
     };
