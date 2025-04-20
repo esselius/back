@@ -8,6 +8,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
     process-compose-flake.url = "github:Platonic-Systems/process-compose-flake";
+    services-flake.url = "github:juspay/services-flake";
   };
 
   outputs = inputs@{ flake-parts, ... }: flake-parts.lib.mkFlake { inherit inputs; } {
@@ -27,15 +28,14 @@
           (_: prev: {
             zeppelin = prev.callPackage ./pkgs/zeppelin.nix { };
             flink_1_17 = prev.callPackage ./pkgs/flink_1_17.nix { };
+            apachePulsar = prev.callPackage ./pkgs/apachePulsar.nix { };
           })
         ];
       };
 
       devShells.default = pkgs.mkShell {
-        inputsFrom = [
-          config.pre-commit.devShell
-        ];
-        packages = [ pkgs.watchexec ];
+        inputsFrom = [ config.pre-commit.devShell ];
+        packages = [ pkgs.watchexec pkgs.pulsarctl ];
         shellHook = config.pre-commit.installationScript;
       };
 
@@ -51,19 +51,23 @@
 
       process-compose.notebook = {
         imports = [
-          ./services/zeppelin.nix
+          inputs.services-flake.processComposeModules.default
           ./services/flink.nix
+          ./services/pulsar.nix
           ./services/spark.nix
+          ./services/zeppelin.nix
         ];
 
         services = {
+          flink.enable = true;
+          pulsar.enable = true;
+          spark.enable = true;
           zeppelin = {
             enable = true;
             useFlink = true;
             useSpark = true;
           };
-          flink.enable = true;
-          spark.enable = true;
+          zookeeper.z1.enable = true;
         };
       };
     };
