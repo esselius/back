@@ -49,27 +49,31 @@
 
       pkgsDirectory = ./pkgs;
 
-      process-compose.notebook = {
-        imports = [
-          inputs.services-flake.processComposeModules.default
-          ./services/flink.nix
-          ./services/pulsar.nix
-          ./services/spark.nix
-          ./services/zeppelin.nix
-        ];
+      process-compose.notebook =
+        let
+          inherit (inputs.services-flake.lib) multiService;
+        in
+        {
+          imports = [
+            inputs.services-flake.processComposeModules.default
+            (multiService ./services/flink.nix)
+            (multiService ./services/pulsar.nix)
+            (multiService ./services/spark.nix)
+            (multiService ./services/zeppelin.nix)
+          ];
 
-        services = {
-          flink.enable = true;
-          pulsar.enable = true;
-          spark.enable = true;
-          zeppelin = {
-            enable = true;
-            useFlink = true;
-            useSpark = true;
+          services = {
+            flink.f1.enable = true;
+            pulsar.p1.enable = true;
+            spark.s1.enable = true;
+            zeppelin.ze1 = {
+              enable = true;
+              useFlink = true;
+              useSpark = true;
+            };
+            zookeeper.zo1.enable = true;
           };
-          zookeeper.z1.enable = true;
         };
-      };
     };
 
     flake.actions-nix = {
