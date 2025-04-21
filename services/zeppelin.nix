@@ -55,6 +55,7 @@
         "ZEPPELIN_WAR_TEMPDIR=$${PWD}/${config.dataDir}/tmp"
         "ZEPPELIN_PORT=${toString config.port}"
         "USE_HADOOP=false"
+        "ZEPPELIN_SEARCH_INDEX_PATH=$${PWD}/${config.dataDir}/index"
       ] ++ lib.optional config.useFlink "FLINK_HOME=${config.flinkPkg}/opt/flink"
       ++ lib.optional config.useSpark "SPARK_HOME=${config.sparkPkg}";
     };
