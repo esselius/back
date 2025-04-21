@@ -34,6 +34,7 @@ flink.overrideAttrs (prev: {
       --set JAVA_HOME "${openjdk8.home}"
 
       sed -i '/env.java.home/d' $out/opt/flink/conf/flink-conf.yaml
+      sed -i '/env.log.dir/d' $out/opt/flink/conf/flink-conf.yaml
       echo 'taskmanager.numberOfTaskSlots: 10' >> $out/opt/flink/conf/flink-conf.yaml
     '';
 })
